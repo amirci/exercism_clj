@@ -1,15 +1,15 @@
 (ns anagram)
 
-(use 'clojure.string)
+(use '[clojure.string :as str])
 
 (defn anagrams-for
   [src words]
-  (def src-low (lower-case src))
+  (def src-low (str/lower-case src))
   (def sorted (sort src-low))
   (defn is-anagram
     [word]
-    (def lw (lower-case word))
-    (and
-      (= (sort lw) sorted)
-      (not= lw src-low)))
+    (let [lw (str/lower-case word)]
+      (and
+        (= (sort lw) sorted)
+        (not= lw src-low))))
   (filter is-anagram words))
